@@ -1,0 +1,93 @@
+h1{
+	color: var(--bs-teal);
+}
+
+body {
+	background-color: var(--bs-light);
+}
+
+.content {
+	min-height: 70vh;
+}
+
+#bootstrap-overrides input{
+  border-radius: 0;
+}
+
+#bootstrap-overrides input[type="text"]:focus, input[type="password"]:focus, input[type="search"]:focus,
+	input[type="email"]:focus, input[type="url"]:focus, input[type="date"]:focus, textarea:focus{
+/*   border-color: #28a745; */
+  border-color: var(--bs-teal);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6);
+  outline: 0 none;
+}
+
+
+#bootstrap-overrides .btn-teal{
+	color: #fff;
+	background-color: var(--bs-teal);
+	border-color: var(--bs-green);
+	border-radius: 0;
+}
+
+#bootstrap-overrides .btn-teal:hover{
+	background-color: var(--bs-green);
+	border-color: var(--bs-teal);
+}
+
+
+#bootstrap-overrides .btn-purple{
+	color: #fff;
+	background-color: var(--bs-purple);
+	border-color: var(--bs-indigo);
+	border-radius: 0;
+}
+
+#bootstrap-overrides .dropdown-menu{
+	border-radius:0;
+}
+
+#bootstrap-overrides .dropdown-item:active{
+    background-color: var(--bs-teal);	
+}
+
+.form-bg{
+	background-color: #9eb3cb;
+}
+
+.footer-title{
+	color: var(--bs-teal);
+}
+
+.footer-bg{
+	background-color: #35495e;
+}
+
+.pagination > li > a
+{
+    background-color: white;
+    color: var(--bs-green);;
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+    color: var(--bs-teal);
+    background-color: #eee;
+    border-color: #ddd;
+}
+
+.pagination > .active > a
+{
+    color: white;
+    background-color: var(--bs-teal);
+    border: solid 1px var(--bs-teal);
+}
+
+.pagination > .active > a:hover
+{
+    background-color: var(--bs-green);
+    border: solid 1px var(--bs-teal);
+}

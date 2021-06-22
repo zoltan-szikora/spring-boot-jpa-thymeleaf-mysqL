@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/admin.html}" >
+<head>
+  <link rel="stylesheet" href="../../static/css/main.css" th:href="@{~/css/main.css}">
+	<title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Felhasználó</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+    <div class="container my-3 pb-5">
+			<div class="pt-3">
+				<h1 class="display-5 fw-bold" th:text="#{label.page.editProfile}">Edit Profile</h1>
+				<hr class="my-4">
+			</div>
+
+			<div class="px-4">
+				<p class="col-md-8 fs-4" th:text="#{label.page.editYourPersonalInfo}">Edit your personal info</p>
+				<form name="update" th:action="@{/user/{id}(id=${user.id})}" th:object="${user}" method="post" class="row g-3" accept-charset="utf-8">
+					<div class="mx-auto border form-bg px-5 py-3">
+
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label for="firstName" th:text="#{label.page.firstName}">First Name</label>
+								<input type="text" class="form-control" name="firstName" th:field="*{firstName}" id="firstName" th:title="#{user.firstName.pattern}">
+								<span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="text-danger"></span>
+							</div>
+							<div class="col-md-6 mb-3">
+								<label for="lastName" th:text="#{label.page.lastName}">Last Name</label>
+								<input type="text" class="form-control" name="lastName" th:field="*{lastName}" id="lastName" th:title="#{user.lastName.pattern}">
+								<span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="text-danger"></span>
+							</div>
+						</div>
+
+						<div class="mb-3">
+							<label for="dateOfBirth" th:text="#{label.page.dateOfBirth}">Date of birth</label>
+							<input type="date" class="form-control" name="dateOfBirth" th:field="*{dateOfBirth}" id="dateOfBirth">
+							<span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}" class="text-danger"></span>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label for="username" th:text="#{label.page.username}">Username</label>
+								<input type="text" class="form-control" name="username" th:field="*{username}" id="username" readonly>
+								<span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger"></span>
+							</div>
+							<div class="col-md-6 mb-3">
+								<label for="email" th:text="#{label.page.email}">E-mail</label>
+								<input type="email" class="form-control" name="email" th:field="*{email}" id="email">
+								<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
+							</div>
+						</div>
+
+						<div class="mb-3">
+							<label for="password" th:text="#{label.page.password}">Password</label>
+							<input type="password" class="form-control" name="password" th:placeholder="#{label.page.password}" id="password" required>
+							<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
+						</div>
+
+						<div class="d-grid gap-2 col-4 mx-auto">
+							<button class="btn btn-teal shadow-none my-3" type="submit" th:text="#{label.page.submit}">Submit</button>
+						</div>
+
+					</div>
+				</form>
+			</div>
+		</div>
+  </div>
+
+</body>
+</html>

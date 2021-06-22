@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/main.html}" >
+<head>
+	<title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Index</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<div class="container my-5 content">
+			<h1 class="display-5 fw-bold">User Registration & Login</h1>
+			<h2>Spring Boot + Spring Security + JPA + Thymeleaf + MySQL</h2>
+			<hr/>
+
+			<div sec:authorize="hasRole('ROLE_USER')">
+				<h2 th:text="#{msg.shown.users}">This content is only shown to USERS</h2>
+			</div>
+			<div sec:authorize="hasRole('ROLE_ADMIN')">
+				<h2 th:text="#{msg.shown.admins}">This content is only shown to ADMINISTRATORS</h2>
+			</div>
+
+		</div>
+	</div>
+
+</body>
+</html>

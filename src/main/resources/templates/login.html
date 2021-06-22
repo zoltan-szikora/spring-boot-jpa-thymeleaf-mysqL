@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="hu"
+	xmlns="http://www.w3.org/1999/xhtml"
+	layout:decorate="~{layouts/main.html}"
+	th:with="showBackToOverview=false">
+<head>
+  	<title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Login</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="container my-5 content">
+			<form name="login" th:action="@{/login}" method="post" class="row g-3" accept-charset="utf-8">
+				<div class="col-md-6 mx-auto border px-5 py-3 shadow form-bg">
+					<div class="text-center my-3 fs-1 text-light" th:utext="#{label.page.login}">Login</div>
+					<div id="err" th:if="${param.error}" class="alert alert-danger rounded-0" th:text="#{msg.failed.login}">Login Failed</div>
+					<div th:if="${param.logout}" class="alert alert-success rounded-0" th:text="#{msg.success.logout}">Logout successful</div>
+
+					<div class="form-floating mb-3">
+						<input type="text" class="form-control" name="username" id="floatUsername" th:placeholder="#{label.page.username}" required="true">
+						<label for="floatUsername" th:text="#{label.page.username}">Username</label>
+					</div>
+					<div class="form-floating mb-3">
+						<input type="password" class="form-control" name="password" id="floatPassword" th:placeholder="#{label.page.password}" required="true">
+						<label for="floatPassword" th:text="#{label.page.password}">Password</label>
+					</div>
+
+					<div class="d-grid gap-2 col-6 mx-auto">
+						<button class="btn btn-teal shadow-none my-3" type="submit" th:utext="#{label.page.login}">Login</button>
+					</div>
+					<hr class="my-4">
+					<div class="text-center mb-3 mx-auto">
+						<span th:text="#{label.page.dontHaveAcc}">dont have an acc</span>
+						<a href="/registration" th:utext="#{label.page.signUp}" class="link-light">Sign up</a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

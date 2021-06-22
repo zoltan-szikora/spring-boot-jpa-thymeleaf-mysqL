@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="hu"
+	xmlns="http://www.w3.org/1999/xhtml"
+	layout:decorate="~{layouts/main.html}"
+	th:with="showBackToOverview=false">
+<head>
+  	<title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Login</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="container my-5 content">
+			<form name="registration" th:action="@{/reg}" th:object="${user}" method="post" class="row g-3" accept-charset="utf-8">
+				<div class="col-md-6 mx-auto border px-3 py-3 shadow form-bg">
+					<div class="text-center my-3 fs-1 text-light" th:utext="#{label.page.registration}">Registration</div>
+					<div th:if="${param.success}" class="alert alert-success rounded-0" th:text="#{label.page.registration.success}">Registration successful</div>
+
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="firstName" th:text="#{label.page.firstName}">FirstName</label>
+							<input type="text" class="form-control" name="firstName" th:field="*{firstName}" id="firstName" th:placeholder="#{label.page.firstName}" th:title="#{user.firstName.pattern}">
+							<span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="text-danger"></span>
+						</div>
+						<div class="col-md-6 mb-3">
+							<label for="lastName" th:text="#{label.page.lastName}">LastName</label>
+							<input type="text" class="form-control" name="lastName" th:field="*{lastName}" id="lastName" th:placeholder="#{label.page.lastName}" th:title="#{user.lastName.pattern}">
+							<span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="text-danger"></span>
+						</div>
+					</div>
+
+					<div class="form-floating mb-3">
+						<input type="date" class="form-control" name="dateOfBirth" th:field="*{dateOfBirth}" id="dateOfBirth" th:placeholder="#{label.page.dateOfBirth}">
+						<label for="dateOfBirth" th:text="#{label.page.dateOfBirth}">DOB</label>
+						<span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}" class="text-danger"></span>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="username" th:text="#{label.page.username}">Username</label>
+							<input type="text" class="form-control" name="username" th:field="*{username}" id="username" th:placeholder="#{label.page.username}" th:title="#{user.username.pattern}">
+							<span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger"></span>
+						</div>
+						<div class="col-md-6 mb-3">
+							<label for="email" th:text="#{label.page.email}">E-mail</label>
+							<input type="email" class="form-control" name="email" th:field="*{email}" id="email" placeholder="E-mail">
+							<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="password" th:text="#{label.page.password}">Password</label>
+							<input type="password" class="form-control" name="password" th:field="*{password}" id="password" th:placeholder="#{label.page.password}" th:title="#{title.page.password}">
+							<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
+						</div>
+						<div class="col-md-6 mb-3">
+							<label for="confirmPassword" th:text="#{label.page.conf.password}">Confirm password</label>
+							<input type="password" class="form-control" name="confirmPassword" th:field="*{confirmPassword}" id="confirmPassword" th:placeholder="#{label.page.conf.password}">
+							<span th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="text-danger"></span>
+						</div>
+					</div>
+
+					<div class="d-grid gap-2 col-6 mx-auto">
+						<button class="btn btn-teal shadow-none my-3" type="submit" th:text="#{label.page.submit}">Submit</button>
+					</div>
+
+					<hr class="my-4">
+					<div class="text-center mb-3 mx-auto">
+						<span th:text="#{label.page.haveAcc}">have an acc</span>
+						<a href="/login" th:utext="#{label.page.login}" class="link-light">Login</a>
+					</div>
+
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

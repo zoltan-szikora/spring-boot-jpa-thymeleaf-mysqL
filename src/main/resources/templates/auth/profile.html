@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/admin.html}" >
+<head>
+	<link rel="stylesheet" href="../static/css/main.css" th:href="@{~/css/main.css}">
+	<title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Profile</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<div class="container my-3 pb-5">
+      <div class="pt-3">
+        <h1 class="display-5 fw-bold" th:text="#{label.page.profile}">Profile</h1>
+				<hr class="my-4">
+			</div>
+
+			<div class="px-4">
+				<p class="col-md-8 fs-1"><strong th:text="#{label.profil.data}">My profile </strong></p>
+
+				<div class="row fs-3">
+					<div class="col-12 col-md-6"><strong th:text="#{label.page.firstName}">Firstname:</strong><strong>: </strong><span th:text="${user.firstName}">Firstname</span><br/></div>
+					<div class="col-12 col-md-6"><strong th:text="#{label.page.lastName}">Lastname: </strong><strong>: </strong><span th:text="${user.lastName}">Lastname</span><br/></div>
+					<div class="col-12 col-md-6"><strong th:text="#{label.page.username}">Username: </strong><strong>: </strong><span th:text="${user.username}">username</span><br/></div>
+					<div class="col-12 col-md-6"><strong th:text="#{label.page.dateOfBirth}">Date of birth: </strong><strong>: </strong><span th:text="${#temporals.format(user.dateOfBirth, 'yyyy.MM.dd')}">DOB</span><br/></div>
+					<div class="col-12 col-md-6"><strong th:text="#{label.page.email}">E-mail: </strong><strong>: </strong><span th:text="${user.email}">email</span><br/></div>
+					<div class="col-12 col-md-6"><strong th:text="#{label.page.activated}">Activated: </strong>: <span th:text="${user.activation}">active</span><br/></div>
+				</div>
+
+				<hr class="my-4">
+				<div sec:authorize="hasRole('ROLE_USER')">
+					<h3 th:text="#{msg.shown.users}">This content is only shown to USERS</h3>
+				</div>
+				<div sec:authorize="hasRole('ROLE_ADMIN')">
+					<h3 th:text="#{msg.shown.admins}">This content is only shown to ADMINISTRATORS</h3>
+				</div>
+			</div>
+
+    </div>
+	</div>
+</body>
+</html>

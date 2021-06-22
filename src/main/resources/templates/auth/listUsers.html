@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/admin.html}" >
+<head>
+  <link rel="stylesheet" href="../../static/css/main.css" th:href="@{~/css/main.css}">
+	<title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Users</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+
+		<div class="container my-3 pb-5">
+      <div class="pt-3">
+        <h1 class="display-5 fw-bold" th:text="#{label.page.users}">Users</h1>
+				<hr class="my-4">
+      </div>
+
+      <div class="px-4">
+        <p class="col-md-8 fs-4" th:text="#{label.page.usersdetails}">Users details</p>
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered">
+              <thead class="thead-dark form-bg">
+                <tr>
+                  <th>ID</th>
+                  <th th:text="#{label.page.fullname}">Name</th>
+                  <th th:text="#{label.page.username}">Username</th>
+                  <th th:text="#{label.page.email}">E-mail</th>
+                  <th th:text="#{label.page.details}">Details</th>
+                  <th th:text="#{label.page.addRole}">Add Admin Role</th>
+                  <th th:text="#{label.page.status}">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:if="${usersPage.empty}">
+                  <td colspan="2">No User Available</td>
+                </tr>
+                <tr th:each="user, iStat : ${usersPage.content}"
+                  th:style="${iStat.odd}? 'font-weight: bold;'">
+                  <td th:text="${user.id}">User ID</td>
+                  <td><span th:text="${user.firstName}"></span>&nbsp;<span th:text="${user.lastName}">Fullname</span></td>
+                  <td th:text="${user.username}">Username</td>
+                  <td th:text="${user.email}">E-mail</td>
+                  <td>
+                    <a class="btn btn-info btn-sm rounded-0" th:href="@{/users/details/{id}(id = ${user.id})}" role="button" th:title="#{title.user.details}">
+                      <i class="fas fa-eye"></i>
+                      <!-- Details -->
+                    </a>
+                  </td>
+                  <td>
+                    <button th:if="${#lists.size(user.roles) == 2}" class="btn btn-purple disabled btn-sm rounded-0">Administrator</button>
+                    <form th:if="${#lists.size(user.roles) == 1}" th:action="@{/users/role/{id}(id=${user.id})}" method="POST">
+                      <!-- <button class="btn btn-primary btn-sm" type="submit">Add Role</button> -->
+
+                      <!-- Button trigger modal -->
+                      <button type="button" class="btn btn-danger btn-sm rounded-0" data-bs-toggle="modal"
+                        data-bs-target="#roleModal" th:attr="data-bs-target='#roleModal'+${user.id}">
+                        <i class="fas fa-plus"></i>
+                        Add Role
+                      </button>
+
+                      <!-- Modal -->
+                      <div class="modal fade" th:id="roleModal+${user.id}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content rounded-0">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="modalLabel" th:text="#{label.page.addRole}">Add Admin Role</h5>
+                              <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <span th:text="#{label.page.addAdminRoleSure}" class="fw-normal">Are you sure?</span><br/>
+                              <span class="fw-normal">ID: <span th:text="${user.id}">userID</span></span>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary rounded-0" data-bs-dismiss="modal" th:text="#{btn.label.cancel}">Cancel</button>
+                              <button type="submit" class="btn btn-teal rounded-0" th:text="#{btn.label.ok}">Ok</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+
+                  </td>
+                  <td>
+                    <span tabindex="0" data-bs-toggle="tooltip" th:title="#{title.user.status.active}">
+                      <button th:if="${user.status.displayValue == 'Active'}" class="btn btn-success disabled btn-sm rounded-0">A</button>
+                    </span>
+                    <form th:if="${user.status.displayValue == 'Progress'}" th:action="@{/users/status/{id}(id=${user.id})}" method="POST">
+                      <button class="btn btn-warning btn-sm rounded-0" type="submit" th:title="#{title.user.status.progress}">P</button>
+                    </form>
+                    <span tabindex="0" data-bs-toggle="tooltip" th:title="#{title.user.status.deleted}">
+                      <button th:if="${user.status.displayValue == 'Deleted'}" class="btn btn-danger disabled btn-sm rounded-0">D</button>
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div th:if="${usersPage.totalPages > 0}" class="mt-2">
+          <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+              <li th:each="pageNumber : ${pageNumbers}"
+               th:class="${pageNumber==usersPage.number + 1} ? 'active' : ''">
+                <a class="page-link shadow-none" th:href="@{/users(size=${usersPage.size}, page=${pageNumber})}"
+                  th:text=${pageNumber}>1</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+      </div>
+    </div>
+	</div>
+
+</body>
+</html>

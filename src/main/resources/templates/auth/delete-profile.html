@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/admin.html}" >
+<head>
+  <link rel="stylesheet" href="../../static/css/main.css" th:href="@{~/css/main.css}">
+	<title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Delete Profile</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+    <div class="container my-3 pb-5">
+			<div class="pt-3">
+        <h1 class="display-5 fw-bold" th:text="#{label.page.deleteprofile}">Delete Profile</h1>
+        <hr class="my-4">
+      </div>
+
+      <div class="px-4">
+        <p class="col-md-8 fs-4" th:text="#{label.page.submit.request}">Submit a request</p>
+
+        <div th:if="${param.success}" class="alert alert-success rounded-0" th:text="#{msg.page.request.accepted}">Your request is accepted</div>
+        <div th:unless="${param.success}">
+          <div  th:if="${user.status.displayValue == 'Progress'}" class="alert alert-info rounded-0" th:text="#{msg.page.request.already}">You have already sent the request</div>
+          <div th:if="${user.status.displayValue == 'Active'}">
+            <form name="update" th:action="@{/user/status/{id}(id=${user.id})}" th:object="${user}" method="POST" class="row g-3" accept-charset="utf-8">
+              <div class="mx-auto border form-bg px-5 py-3">
+
+                <div class="mb-3">
+                  <label for="password" th:text="#{label.page.password}">Password</label>
+                  <input type="password" class="form-control" name="password" th:placeholder="#{label.page.password}" id="password" required>
+                  <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
+                </div>
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-danger rounded-0" data-bs-toggle="modal" data-bs-target="#deleteModal" th:text="#{btn.label.deleteAccount}">
+                  Delete Profile
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content rounded-0">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel" th:text="#{btn.label.deleteAccount}">Delete Profile</h5>
+                        <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body" th:text="#{btn.label.sure}">
+                        Are you sure?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary rounded-0" data-bs-dismiss="modal" th:text="#{btn.label.cancel}">Cancel</button>
+                        <button type="submit" class="btn btn-danger rounded-0" th:text="#{btn.label.ok}">Ok</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+		</div>
+	</div>
+
+</body>
+</html>

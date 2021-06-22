@@ -1,0 +1,67 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-secondary" aria-label="navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/" th:text="#{label.page.name}">Brand Name</a>
+    <button class="navbar-toggler rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#top-navbar" aria-controls="top-navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+      <div class="collapse navbar-collapse" id="top-navbar">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a th:class="${#httpServletRequest.requestURI.contains('/home')} ? 'nav-link active' : 'nav-link'"
+              aria-current="page" href="/" th:utext="#{label.page.home}">Home</a>
+          </li>
+        </ul>
+
+        <div class="d-flex">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="langDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" th:utext="#{label.page.language}">
+                Language
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="langDropdown" style="min-width: 6rem;">
+                <li><a class="dropdown-item" href="/?lang=en"><img src="https://www.countryflags.io/gb/flat/24.png" class="me-1">ENG</a></li>
+                <li><a class="dropdown-item" href="/?lang=hu"><img src="https://www.countryflags.io/hu/flat/24.png" class="me-1">HUN</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="d-flex">
+          <div sec:authorize="isAuthenticated()">
+            <form class="form-inline" id="frmlogout" th:action="@{/logout}" method="POST">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span>
+                      <i class="fas fa-user me-1"></i>
+                      <span sec:authentication="name">Username</span>
+                    </span>
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="dropdown01">
+                    <li><a class="dropdown-item" href="/profile" th:text="#{label.page.profile}">Profile</a></li>
+                    <li><a class="dropdown-item" href="/user/edit" th:text="#{label.page.editProfile}">Edit Profile</a></li>
+                    <li><a class="dropdown-item" href="/user/change-password" th:text="#{label.page.changePassword}">Change Password</a></li>
+                    <li sec:authorize="hasRole('ROLE_USER')"><a class="dropdown-item" href="/user/status" th:text="#{label.page.deleteprofile}">Delete Profile</a></li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')"><a class="dropdown-item" href="/users" th:text="#{label.page.users}">Users</a></li>
+                    <li>
+                      <a class="dropdown-item" href="/logout" th:text="#{label.page.logout}">LogOut</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </form>
+          </div>
+
+          <div sec:authorize="isAnonymous()">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" th:class="${#httpServletRequest.requestURI.contains('/login')} ? 'nav-link active' : 'nav-link'" href="/login" th:utext="#{label.page.login}">Login</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+  </div>
+</nav>

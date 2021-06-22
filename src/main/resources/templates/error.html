@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/error-layout.html}" >
+<head>
+	<title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE" th:text="${status}">Error Page</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<div class="container my-3" id="error">
+			<div class="err-content">
+				<h1 th:text="${status}">status</h1>
+				<p>
+					<strong th:text="#{label.err.error}">Error: </strong>&nbsp;<span th:text="${error}"></span><br/>
+					<strong th:text="#{label.err.msg}">Message: </strong>&nbsp;<span th:text="${message}"></span><br/>
+					<strong th:text="#{label.err.timestamp}">Timestamp: </strong>&nbsp;<span th:text="${#dates.format(timestamp, 'YYYY.MM.dd HH:mm')}"></span>
+				</p>
+				<a type="button" class=" btn-err" href="/home" th:text="#{btn.label.backHome}">Back to home page</a>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

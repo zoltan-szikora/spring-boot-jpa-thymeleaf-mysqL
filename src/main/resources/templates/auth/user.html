@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/admin.html}" >
+<head>
+  <link rel="stylesheet" href="../../static/css/main.css" th:href="@{~/css/main.css}">
+	<title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">User</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+    <div class="container my-3 pb-5">
+			<div class="pt-3">
+        <h1 class="display-5 fw-bold" th:text="#{label.page.userdetails}">User Details</h1>
+				<hr class="my-4">
+			</div>
+
+			<div class="px-4">
+        <p class="col-md-8 fs-1"><strong>ID: </strong> <span th:text="${user.id}">id</span></p>
+
+				<div class="row fs-3">
+					<div class="col-12 col-md-6"><strong th:text="#{label.page.firstName}">Firstname:</strong><strong>: </strong><span th:text="${user.firstName}">Firstname</span><br/></div>
+					<div class="col-12 col-md-6"><strong th:text="#{label.page.lastName}">Lastname: </strong><strong>: </strong><span th:text="${user.lastName}">Lastname</span><br/></div>
+					<div class="col-12 col-md-6"><strong th:text="#{label.page.dateOfBirth}">Date of birth: </strong><strong>: </strong><span th:text="${#temporals.format(user.dateOfBirth, 'YYYY.MM.dd')}">DOB</span><br/></div>
+					<div class="col-12 col-md-6"><strong th:text="#{label.page.username}">Username: </strong><strong>: </strong><span th:text="${user.username}">username</span><br/></div>
+					<div class="col-12 col-md-6"><strong th:text="#{label.page.email}">E-mail: </strong><strong>: </strong><span th:text="${user.email}">email</span><br/></div>
+					<div class="col-12 col-md-6"><strong th:text="#{label.page.status}">Status: </strong><strong>: </strong><span th:text="${user.status.displayValue}">status</span><br/></div>
+					<div class="col-12 col-md-6"><strong th:text="#{label.page.roles}">Roles: </strong><strong>: </strong><span th:each="role : ${user.roles}"
+						th:text="${role.role.replaceFirst('ROLE_', '')}" class="me-2">Role</span><br/></div>
+					<div class="col-12 col-md-6"><strong th:text="#{label.page.activated}">Activated: </strong>: <span th:text="${user.activation}">active</span><br/></div>
+				</div>
+
+				<a class="btn btn-teal shadow-none mt-3" href="/users" role="button"  th:text="#{btn.label.back}">Back</a>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
