@@ -53,7 +53,7 @@ public class MainController {
 	}
 
 	@GetMapping("/activation/{code}")
-	public String activation(@PathVariable("code") String code, HttpServletResponse response) {
+	public String activation(@PathVariable("code") String code) {
 		userService.userActivation(code);
 		return "/login";
 	}
