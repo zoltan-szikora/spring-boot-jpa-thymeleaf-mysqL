@@ -53,8 +53,7 @@ public class UserController {
 	}
 
 	@PostMapping("/user/{id}")
-	public String updateUser(final HttpServletRequest request, @PathVariable("id") long id, @Valid User user,
-			BindingResult result) {
+	public String updateUser(@PathVariable("id") long id, @Valid User user,	BindingResult result) {
 		final Locale locale = LocaleContextHolder.getLocale();
 		if (result.hasErrors()) return "auth/update-user";
 
