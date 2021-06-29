@@ -77,8 +77,7 @@ public class UserController {
 	}
 
 	@PostMapping("/user/password")
-	public String updatePassword(final HttpServletRequest request,
-			@ModelAttribute("newpassword") @Valid PasswordDto passDto, BindingResult result) {
+	public String updatePassword(@ModelAttribute("newpassword") @Valid PasswordDto passDto, BindingResult result) {
 		final Locale locale = LocaleContextHolder.getLocale();
 		final Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findByUsername(loggedInUser.getName());
